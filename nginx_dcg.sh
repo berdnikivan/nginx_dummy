@@ -5,12 +5,12 @@ echo "server {" > $conf_path
 ips=$(ip -f inet addr show eth0 | awk '{ print $2}'| grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
 for ip in $ips
         do
-                echo "    listen $ip:80 default_server;" >> $conf_path
+            echo "    listen $ip:80 default_server;" >> $conf_path
 done
 echo "    server_name _;
-	return 444;
+    return 444;
 
-	## Root for GA verification files
+    ## Root for GA verification files
     #root /var/www/html;
     #index index.nginx-debian.html;
     #location / {
