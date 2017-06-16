@@ -4,11 +4,19 @@ conf_ln="/etc/nginx/sites-enabled/002_default.conf"
 echo "server {" > $conf_path
 ips=$(ip -f inet addr show eth0 | awk '{ print $2}'| grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
 for ip in $ips
-	do
-		echo "    listen $ip:80 default_server;" >> $conf_path
+        do
+                echo "    listen $ip:80 default_server;" >> $conf_path
 done
 echo "    server_name _;
-    return 444;
-    }
+	return 444;
+
+	## Root for GA verification files
+    #root /var/www/html;
+    #index index.nginx-debian.html;
+    #location / {
+    #    allow all;
+    #    autoindex on;
+    #}
+}
 " >> $conf_path
 ln -sf $conf_path $conf_ln
